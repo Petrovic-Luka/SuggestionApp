@@ -21,8 +21,6 @@ public class DbConnection : IDbConnection
     public IMongoCollection<UserModel> UserCollection { get; private set; }
     public IMongoCollection<SuggestionModel> SuggestionCollection { get; private set; }
 
-
-
     public DbConnection(IConfiguration config)
     {
         _config = config;
