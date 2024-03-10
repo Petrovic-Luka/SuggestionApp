@@ -16,11 +16,19 @@ namespace SuggestionAppLibrary.DataAccess
         public async Task<List<CategoryModel>> GetCategoryModels()
         {
             var output = _cache.Get<List<CategoryModel>>(cacheName);
-            if (output == null)
+            try
             {
-                var results = await _categories.FindAsync(_ => true);
-                output = results.ToList();
-                _cache.Set(cacheName, output, TimeSpan.FromDays(1));
+                if (output == null)
+                {
+                    var results = await _categories.FindAsync(_ => true);
+                    output = results.ToList();
+                    _cache.Set(cacheName, output, TimeSpan.FromDays(1));
+                }
+            }
+            catch (Exception ex)
+            {
+
+                 Console.WriteLine(ex.Message);
             }
             return output;
         }
